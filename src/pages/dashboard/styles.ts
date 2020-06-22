@@ -8,7 +8,7 @@ interface FormProps {
 export const Title = styled.h1`
   font-size: 48px;
   color: #3a3a3a;
-  max-width: 470px;
+  max-width: 500px;
   line-height: 56px;
 
   margin-top: 80px;
@@ -16,7 +16,7 @@ export const Title = styled.h1`
 
 export const Form = styled.form<FormProps>`
   margin-top: 40px;
-  max-width: 700px;
+  max-width: 800px;
   display: flex;
 
   input {
@@ -57,22 +57,25 @@ export const Form = styled.form<FormProps>`
 
 export const Repositories = styled.div`
   margin-top: 80px;
-  max-width: 700px;
+  max-width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  & > * {
+    margin-bottom: 16px;
+  }
 
   a {
     background: #fff;
     border-radius: 5px;
-    width: 100%;
+    width: 85%;
     padding: 24px;
     text-decoration: none;
 
     display: flex;
     align-items: center;
     transition: 0.2s;
-
-    & + a {
-      margin-top: 16px;
-    }
 
     &:hover {
       transform: translateX(10px);
@@ -102,6 +105,25 @@ export const Repositories = styled.div`
     svg {
       margin-left: auto;
       color: #cbcbd6;
+    }
+  }
+
+  button {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(197, 48, 48, 0.5);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(197, 48, 48, 0.8);
+    }
+
+    svg:hover {
+      transform: scale(1.3);
     }
   }
 `;

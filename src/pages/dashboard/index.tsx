@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import React, { useState, FormEvent, useEffect } from 'react';
-import { FiChevronRight } from 'react-icons/fi';
+import React, { useState, useEffect, FormEvent, MouseEvent } from 'react';
+import { FiChevronRight, FiTrash2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
@@ -50,7 +50,9 @@ const Dashboard: React.FC = () => {
     e.preventDefault();
 
     if (!newRepo) {
-      setInputError('Digite o usuário/nome do repositório');
+      setInputError(
+        'Busque o respositório com o formato: usuário/nome-do-repositório',
+      );
       return;
     }
 
@@ -61,19 +63,32 @@ const Dashboard: React.FC = () => {
       setNewRepo('');
       setInputError('');
     } catch (err) {
-      setInputError('Erro na busca por este repositório');
+      setInputError('Erro na busca por este repositório!');
     }
+  }
+
+  async function handleDeleteRepository(
+    e: MouseEvent<HTMLButtonElement>,
+    name: string,
+  ): Promise<void> {
+    e.preventDefault();
+
+    const filteredRepositories = repositories.filter(
+      repository => repository.full_name !== name,
+    );
+
+    setRepositories(filteredRepositories);
   }
 
   return (
     <>
       <img src={logoImg} alt="Github explorer" />
-      <Title>Explorer repositórios no Github</Title>
+      <Title>Buscador de repositórios no GitHub</Title>
       <Form hasError={!!inputError} onSubmit={handleAddRepository}>
         <input
           value={newRepo}
           onChange={e => setNewRepo(e.target.value)}
-          placeholder="Digite o nome do repositório"
+          placeholder="Faça uma busca com o formato: usuário/nome-do-repositório"
         />
         <button type="submit">Pesquisar</button>
       </Form>
@@ -81,20 +96,28 @@ const Dashboard: React.FC = () => {
       {inputError && <Error>{inputError}</Error>}
       <Repositories>
         {repositories.map(repository => (
-          <Link
-            key={repository.full_name}
-            to={`/repository/${repository.full_name}`}
-          >
-            <img
-              src={repository.owner.avatar_url}
-              alt={repository.owner.login}
-            />
-            <div>
-              <strong>{repository.full_name}</strong>
-              <p>{repository.description}</p>
-            </div>
-            <FiChevronRight size={20} />
-          </Link>
+          <>
+            <Link
+              key={repository.full_name}
+              to={`/repository/${repository.full_name}`}
+            >
+              <img
+                src={repository.owner.avatar_url}
+                alt={repository.owner.login}
+              />
+              <div>
+                <strong>{repository.full_name}</strong>
+                <p>{repository.description}</p>
+              </div>
+              <FiChevronRight size={20} />
+            </Link>
+            <button
+              type="button"
+              onClick={e => handleDeleteRepository(e, repository.full_name)}
+            >
+              <FiTrash2 size={24} color="#fff" />
+            </button>
+          </>
         ))}
       </Repositories>
     </>
