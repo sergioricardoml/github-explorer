@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import api from '../../services/api';
 
@@ -17,9 +17,31 @@ interface Repository {
 
 const Dashboard: React.FC = () => {
   const [newRepo, setNewRepo] = useState('');
-  const [repositories, setRepositories] = useState<Repository[]>([]);
-
   const [inputError, setInputError] = useState('');
+
+  const [repositories, setRepositories] = useState<Repository[]>(() => {
+    const storagedRepos = localStorage.getItem('@GithubExplorer:repositories');
+    if (storagedRepos) {
+      return JSON.parse(storagedRepos);
+    }
+    return [];
+  });
+
+  /* A parte de localStorage acima também pode ser feita da seguinte forma:
+
+    useEffect(() => {
+    const storagedRepos = localStorage.getItem('@GithubExplorer:repositories');
+    if (storagedRepos) {
+      setRepositories(JSON.parse(storagedRepos));
+    }
+  }, []); */
+
+  useEffect(() => {
+    localStorage.setItem(
+      '@GithubExplorer:repositories',
+      JSON.stringify(repositories),
+    );
+  }, [repositories]);
 
   async function handleAddRepository(
     e: FormEvent<HTMLFormElement>,
