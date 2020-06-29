@@ -23,11 +23,11 @@
 </p>
 
 ## Recursos
-- Busca de repositórios baseada no formato: usuário/nome-do-repositório
-- Listagem dos repositórios
-- Listagem individual do repositório com informações adicionais
-- Listagem das issues de um repositório (com link para issue original no GitHub)
-- Remoção do repositório da lista
+- Busca de repositórios baseada no formato: usuário/nome-do-repositório;
+- Listagem dos repositórios;
+- Listagem individual do repositório com informações adicionais;
+- Listagem das issues de um repositório (com link para issue original no GitHub);
+- Remoção do repositório da lista.
 
 ## Instalação
 
@@ -35,7 +35,7 @@ Para clonar e executar a aplicação é necessário [Git](https://git-scm.com) e
 
 ```bash
 # Clone o repositório
-$ git clone https://github.com/sergioricardoml/github-explorer
+$ git clone https://github.com/sergioricardoml/github-explorer.git
 
 # Entre no repositório
 $ cd github-explorer
