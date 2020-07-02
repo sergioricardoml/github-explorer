@@ -75,7 +75,7 @@ export const Repositories = styled.div`
 
     display: flex;
     align-items: center;
-    transition: 0.2s;
+    transition: transform 0.2s;
 
     &:hover {
       transform: translateX(10px);
@@ -88,7 +88,8 @@ export const Repositories = styled.div`
     }
 
     div {
-      margin-left: 16px;
+      margin: 0 16px;
+      flex: 1;
 
       strong {
         font-size: 20px;
@@ -116,14 +117,17 @@ export const Repositories = styled.div`
     background: rgba(197, 48, 48, 0.5);
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 
     &:hover {
       background: rgba(197, 48, 48, 0.8);
     }
 
+    svg {
+      transition: transform 0.3s;
+    }
+
     svg:hover {
-      transform: scale(1.3);
+      transform: scale(1.2);
     }
   }
 `;
